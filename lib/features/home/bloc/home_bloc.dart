@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 import 'package:shopping_app_using_blc/data/cart_items.dart';
-import 'package:shopping_app_using_blc/data/grocery_data.dart';
+//import 'package:shopping_app_using_blc/data/grocery_data.dart';
 import 'package:shopping_app_using_blc/data/wishlist_items.dart';
 import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
 
@@ -25,15 +27,31 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       HomeInitialEvent event, Emitter<HomeState> emit) async {
     emit(HomeLoadingState());
     await Future.delayed(const Duration(seconds: 1));
+
+// Function to fetch data from the API
+    List<ProductDataModel> products;
+    final response =
+        await http.get(Uri.parse('https://fakestoreapi.com/products'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body);
+      //List<Post> posts = data.map((item) => Post.fromJson(item)).toList();
+      products = data.map((item) => ProductDataModel.fromJson(item)).toList();
+      //return posts;
+    } else {
+      throw Exception('Failed to load data');
+    }
+
     emit(HomeLoadedSuccessState(
-        products: GroceryData.groceryProducts
-            .map((e) => ProductDataModel(
-                id: e['id'],
-                name: e['name'],
-                discription: e['description'],
-                price: e['price'],
-                imageUrl: e['imageUrl']))
-            .toList()));
+        // products: GroceryData.groceryProducts
+        //     .map((e) => ProductDataModel(
+        //         id: e['id'],
+        //         name: e['name'],
+        //         discription: e['description'],
+        //         price: e['price'],
+        //         imageUrl: e['imageUrl']))
+        //     .toList()));
+        products: products));
   }
 
   FutureOr<void> homeWishlistButtonNavigateEvent(

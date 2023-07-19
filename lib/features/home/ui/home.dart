@@ -60,9 +60,13 @@ class _HomeState extends State<Home> {
           case HomeLoadedSuccessState:
             final successState = state as HomeLoadedSuccessState;
             return Scaffold(
+                // drawer: Drawer(
+
+                // ),
                 appBar: AppBar(
                   backgroundColor: Colors.purple[200],
-                  title: const Text('Grocery App'),
+                  title: const Text('Shopping App'),
+                  //Grocery App
                   actions: [
                     IconButton(
                         onPressed: () {
@@ -85,6 +89,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   child: ListView.builder(
+                      scrollDirection: Axis.vertical,
                       itemCount: successState.products.length,
                       itemBuilder: (context, index) {
                         return ProductTileWidget(

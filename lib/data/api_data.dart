@@ -20,18 +20,18 @@ import 'package:shopping_app_using_blc/features/home/models/home_product_data_mo
 // }
 
 // Function to fetch data from the API
-Future<List<ProductDataModel>> fetchPosts() async {
-  final response =
-      await http.get(Uri.parse('https://fakestoreapi.com/products'));
+// Future<List<ProductDataModel>> fetchPosts() async {
+//   final response =
+//       await http.get(Uri.parse('https://fakestoreapi.com/products'));
 
-  if (response.statusCode == 200) {
-    List<dynamic> data = jsonDecode(response.body);
-    //List<Post> posts = data.map((item) => Post.fromJson(item)).toList();
-    List<ProductDataModel> products =
-        data.map((item) => ProductDataModel.fromJson(item)).toList();
-    //return posts;
-    return products;
-  } else {
-    throw Exception('Failed to load data');
-  }
-}
+//   if (response.statusCode == 200) {
+//     List<dynamic> data = jsonDecode(response.body);
+//     //List<Post> posts = data.map((item) => Post.fromJson(item)).toList();
+//     List<ProductDataModel> products =
+//         data.map((item) => ProductDataModel.fromJson(item)).toList();
+//     //return posts;
+//     return products;
+//   } else {
+//     throw Exception('Failed to load data');
+//   }
+// }
