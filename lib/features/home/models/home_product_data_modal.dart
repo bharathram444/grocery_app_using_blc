@@ -15,10 +15,10 @@ class ProductDataModel {
   factory ProductDataModel.fromJson(Map<String, dynamic> json) {
     return ProductDataModel(
       id: json['id'],
-      discription: json['id'],
-      imageUrl: json['id'],
-      name: json['id'],
-      price: json['id'],
+      discription: json['description'],
+      imageUrl: json['image'],
+      name: json['title'],
+      price: json['price'],
     );
   }
 }
