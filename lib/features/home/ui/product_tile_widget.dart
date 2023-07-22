@@ -25,10 +25,10 @@ class _ProductTileWidgetState extends State<ProductTileWidget> {
   void initState() {
     super.initState();
 
-    if (widget.productDataModel.discription.length > 40) {
-      firstHalf = widget.productDataModel.discription.substring(0, 40);
+    if (widget.productDataModel.discription.length > 30) {
+      firstHalf = widget.productDataModel.discription.substring(0, 30);
       secondHalf = widget.productDataModel.discription.substring(
-        40,
+        30,
         widget.productDataModel.discription.length,
       );
     } else {
@@ -49,7 +49,7 @@ class _ProductTileWidgetState extends State<ProductTileWidget> {
     );
     return Container(
       width: 300,
-      margin: const EdgeInsets.only(bottom: 10, top: 10, left: 20, right: 20),
+      margin: const EdgeInsets.only(bottom: 10, top: 10, left: 10, right: 10),
       padding: const EdgeInsets.all(10),
       color: Colors.transparent,
       child: Column(
@@ -111,7 +111,7 @@ class _ProductTileWidgetState extends State<ProductTileWidget> {
                                 flag ? ("$firstHalf ...") : (firstHalf),
                                 overflow: TextOverflow.ellipsis,
                                 style: myTextStyle.copyWith(
-                                  fontSize: 14,
+                                  fontSize: 12,
                                 ),
                               ),
                             ],
