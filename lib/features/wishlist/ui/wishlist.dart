@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopping_app_using_blc/data/wishlist_items.dart';
 import 'package:shopping_app_using_blc/features/wishlist/bloc/wishlist_bloc.dart';
 import 'package:shopping_app_using_blc/features/wishlist/ui/wishlist_title_widget.dart';
 
@@ -35,12 +36,19 @@ class _WishListState extends State<WishList> {
               content: Text('Item Removed from Wishlist !'),
               duration: Duration(seconds: 1),
             ));
+          } else if (state
+              is WishlistItemRemoveAndAddToCartStateForScaffoldMessenger) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Item Moved To Cart !'),
+              duration: Duration(seconds: 1),
+            ));
           }
         },
         builder: (context, state) {
           switch (state.runtimeType) {
             case WishlistSuccessState:
               final successState = state as WishlistSuccessState;
+
               return Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(

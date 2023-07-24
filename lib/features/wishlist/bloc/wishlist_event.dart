@@ -12,3 +12,9 @@ class WishlistItemRemoveEvent extends WishlistEvent {
   // ignore: non_constant_identifier_names
   WishlistItemRemoveEvent({required this.productDataModel});
 }
+
+class WishlistItemRemoveAndAddToCartEvent extends WishlistEvent {
+  final ProductDataModel productDataModel;
+
+  WishlistItemRemoveAndAddToCartEvent({required this.productDataModel});
+}

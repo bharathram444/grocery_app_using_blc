@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app_using_blc/features/cart/ui/cart.dart';
 import 'package:shopping_app_using_blc/features/home/bloc/home_bloc.dart';
-import 'package:shopping_app_using_blc/features/home/ui/product_tile_widget.dart';
 import 'package:shopping_app_using_blc/features/home/ui/ProductCategoryRowBilder.dart';
 import 'package:shopping_app_using_blc/features/wishlist/ui/wishlist.dart';
 
@@ -78,45 +77,6 @@ class _HomeState extends State<Home> {
                         icon: const Icon(Icons.shopping_cart))
                   ],
                 ),
-                // body: Container(
-                //   decoration: const BoxDecoration(
-                //     image: DecorationImage(
-                //       image: NetworkImage(
-                //           'https://images.squarespace-cdn.com/content/v1/5aa5a05cfcf7fd70d5c3b558/1521246372456-TKBYGGL86AFJZZZU8O6H/Artboard+2+copy+2%402x.png?format=2500w'),
-                //       fit: BoxFit.cover,
-                //     ),
-                //   ),
-                //   child: Column(
-                //     children: [
-                //       Container(
-                //         //margin: const EdgeInsets.all(6),
-                //         width: double.maxFinite,
-                //         height: 300,
-                //         decoration: const BoxDecoration(
-                //           image: DecorationImage(
-                //             image: NetworkImage(
-                //                 'https://static.vecteezy.com/system/resources/thumbnails/001/990/015/small_2x/online-shopping-concept-smartphone-online-store-illustration-free-vector.jpg'),
-                //             fit: BoxFit.cover,
-                //           ),
-                //         ),
-                //       ),
-                //       Expanded(
-                //         child: ProductCategoryRowBilder(
-                //             successState: successState,
-                //             homeBloc: homeBloc,
-                //             itemCount: successState.test3.length,
-                //             productDataModelList: successState.test3),
-                //       ),
-                //       Expanded(
-                //         child: ProductCategoryRowBilder(
-                //             successState: successState,
-                //             homeBloc: homeBloc,
-                //             itemCount: successState.test3.length,
-                //             productDataModelList: successState.test3),
-                //       ),
-                //     ],
-                //   ),
-                // )
                 body: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[

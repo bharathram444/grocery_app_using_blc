@@ -10,3 +10,9 @@ class CartItemRemoveEvent extends CartEvent {
 
   CartItemRemoveEvent({required this.productDataModel});
 }
+
+class CartItemRemoveAndAddToWishlistEvent extends CartEvent {
+  final ProductDataModel productDataModel;
+
+  CartItemRemoveAndAddToWishlistEvent({required this.productDataModel});
+}

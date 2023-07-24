@@ -16,3 +16,6 @@ class WishlistSuccessState extends WishlistState {
 }
 
 class WishlistItemRemoveStateForScaffoldMessenger extends WishlistActionState {}
+
+class WishlistItemRemoveAndAddToCartStateForScaffoldMessenger
+    extends WishlistActionState {}

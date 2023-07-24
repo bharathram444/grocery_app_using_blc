@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopping_app_using_blc/data/cart_items.dart';
 import 'package:shopping_app_using_blc/features/cart/bloc/cart_bloc.dart';
 import 'package:shopping_app_using_blc/features/cart/ui/cart_title_widget.dart';
 
@@ -32,7 +33,13 @@ class _CartState extends State<Cart> {
         listener: (context, state) {
           if (state is CartItemRemoveStateForScaffoldMessenger) {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Item Removed from Cart !'),
+              content: Text('Item Removed From Cart !'),
+              duration: Duration(seconds: 1),
+            ));
+          } else if (state
+              is CartItemRemoveAndAddToWishlistStateForScaffoldMessenger) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Item Moved To Wishlist !'),
               duration: Duration(seconds: 1),
             ));
           }
@@ -41,6 +48,12 @@ class _CartState extends State<Cart> {
           switch (state.runtimeType) {
             case CartSuccessState:
               final successState = state as CartSuccessState;
+              double totalPrice = 0;
+
+              // Calculate the total price by summing all item prices
+              for (var product in cartItems) {
+                totalPrice += product.price;
+              }
               return Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -49,14 +62,33 @@ class _CartState extends State<Cart> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                child: ListView.builder(
-                    itemCount: successState.CartItems.length,
-                    itemBuilder: (context, index) {
-                      return CartTileWidget(
-                        productDataModel: successState.CartItems[index],
-                        cartBloc: cartBloc,
-                      );
-                    }),
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: successState.CartItems.length,
+                            itemBuilder: (context, index) {
+                              return CartTileWidget(
+                                productDataModel: successState.CartItems[index],
+                                cartBloc: cartBloc,
+                              );
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "\$${totalPrice.toStringAsFixed(2)}",
+                            style: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               );
             default:
               return const SizedBox();

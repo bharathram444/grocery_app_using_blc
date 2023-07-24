@@ -16,3 +16,6 @@ class CartSuccessState extends CartState {
 }
 
 class CartItemRemoveStateForScaffoldMessenger extends CartActionState {}
+
+class CartItemRemoveAndAddToWishlistStateForScaffoldMessenger
+    extends CartActionState {}
