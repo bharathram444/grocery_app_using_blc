@@ -16,3 +16,9 @@ class CartItemRemoveAndAddToWishlistEvent extends CartEvent {
 
   CartItemRemoveAndAddToWishlistEvent({required this.productDataModel});
 }
+
+// ignore: must_be_immutable
+class CartItemIncrementEvent extends CartEvent {
+  final ProductDataModel incrementproduct;
+  CartItemIncrementEvent({required this.incrementproduct});
+}

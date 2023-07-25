@@ -5,8 +5,6 @@ import 'package:shopping_app_using_blc/features/home/models/home_product_data_mo
 class CartTileWidget extends StatelessWidget {
   final ProductDataModel productDataModel;
   final CartBloc cartBloc;
-  // Constant default value for categoryrowName
-  static const String defaultcartProductName = "Product";
   const CartTileWidget({
     Key? key, // Add Key? key parameter to the constructor
     required this.productDataModel,
@@ -15,6 +13,7 @@ class CartTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    num count = 1 ?? 2;
     const TextStyle myTextStyle = TextStyle(
       fontSize: 16, // Font size
       fontWeight: FontWeight.bold, // Font weight
@@ -35,8 +34,6 @@ class CartTileWidget extends StatelessWidget {
         ),
       ),
     );
-    final String cartProductName =
-        productDataModel.name ?? defaultcartProductName;
 
     return Container(
       width: double.maxFinite,
@@ -59,13 +56,16 @@ class CartTileWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                height: 140,
+                height: 136,
                 child: Container(
                   width: double.maxFinite,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: NetworkImage(productDataModel.imageUrl))),
                 ),
+              ),
+              const SizedBox(
+                height: 3,
               ),
               const Divider(
                 color: Colors.black54,
@@ -76,10 +76,83 @@ class CartTileWidget extends StatelessWidget {
                 height: 46,
                 child: Container(
                   width: double.maxFinite,
-                  color: Colors.grey,
-                  child: const Text(
-                    'Container  2',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  color: Colors.transparent,
+                  child: Container(
+                    width: double.maxFinite,
+                    color: Colors.transparent,
+                    padding: const EdgeInsets.only(
+                        left: 3, right: 3, top: 2, bottom: 2),
+                    margin: const EdgeInsets.only(
+                      top: 6,
+                      bottom: 6,
+                    ),
+                    child: Container(
+                      // height: 10,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.blue,
+                      ),
+                      child: Row(
+                        // mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.remove,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(
+                                left: 1, right: 1, top: 3, bottom: 3),
+                            height: double.maxFinite,
+                            width: 2, // Set the width for the divider container
+                            color: Colors.black54,
+                            child: const Divider(
+                              color: Colors
+                                  .transparent, // Set the color of the divider to transparent
+                              thickness: 2,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 3, right: 3),
+                            child: Text(
+                              '$count',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(
+                                left: 1, right: 1, top: 3, bottom: 3),
+                            height: double.maxFinite,
+                            width: 2, // Set the width for the divider container
+                            color: Colors.black54,
+                            child: const Divider(
+                              color: Colors
+                                  .transparent, // Set the color of the divider to transparent
+                              thickness: 2,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              cartBloc.add(CartItemIncrementEvent(
+                                  incrementproduct: productDataModel));
+                            },
+                            icon: const Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -118,7 +191,7 @@ class CartTileWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          cartProductName, // Use cartProductName here
+                          productDataModel.name, // Use cartProductName here
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
                           style: myTextStyle.copyWith(fontSize: 22),

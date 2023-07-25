@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app_using_blc/data/cart_items.dart';
 import 'package:shopping_app_using_blc/features/cart/bloc/cart_bloc.dart';
 import 'package:shopping_app_using_blc/features/cart/ui/cart_title_widget.dart';
+import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});
@@ -48,10 +49,20 @@ class _CartState extends State<Cart> {
           switch (state.runtimeType) {
             case CartSuccessState:
               final successState = state as CartSuccessState;
-              double totalPrice = 0;
 
-              // Calculate the total price by summing all item prices
-              for (var product in cartItems) {
+              // Create an instance of CartSuccessState using the factory constructor
+              CartSuccessState cartState =
+                  CartSuccessState.withUniqueItems(cartItems);
+
+              // Get the unique items using the static property
+              List<ProductDataModel> uniqueItems =
+                  CartSuccessState.uniqueCartItems;
+
+              // Access the normal list using the instance variable
+              List<ProductDataModel> normalItems = cartState.CartItems;
+              List<ProductDataModel> unItems = uniqueItems;
+              double totalPrice = 0;
+              for (var product in normalItems) {
                 totalPrice += product.price;
               }
               return Container(
@@ -68,10 +79,10 @@ class _CartState extends State<Cart> {
                       children: [
                         Expanded(
                           child: ListView.builder(
-                            itemCount: successState.CartItems.length,
+                            itemCount: unItems.length,
                             itemBuilder: (context, index) {
                               return CartTileWidget(
-                                productDataModel: successState.CartItems[index],
+                                productDataModel: unItems[index],
                                 cartBloc: cartBloc,
                               );
                             },
@@ -80,7 +91,8 @@ class _CartState extends State<Cart> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "\$${totalPrice.toStringAsFixed(2)}",
+                            "\$ $totalPrice",
+                            // "\$${totalPrice.toStringAsFixed(2)}",
                             style: const TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold),
                           ),
