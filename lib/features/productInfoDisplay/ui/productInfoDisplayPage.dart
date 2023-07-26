@@ -36,7 +36,7 @@ class _productInfoDisplayPageState extends State<productInfoDisplayPage> {
             final successState = state as ProductInfoDisplayLoadedSuccessState;
             return Scaffold(
               appBar: AppBar(
-                title: const Text("ProductInfoDisplay nPage"),
+                title: const Text(""),
               ),
               body: Center(
                 child: Container(
