@@ -1,9 +1,9 @@
 class ProductDataModel {
-  final int id;
-  final String name;
-  final String discription;
-  final double price;
-  final String imageUrl;
+  int id;
+  String name;
+  String discription;
+  double price;
+  String imageUrl;
 
   ProductDataModel(
       {required this.id,

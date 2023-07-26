@@ -20,3 +20,9 @@ class HomeProductCartButtonClickedEvent extends HomeEvent {
 class HomeWishlistButtonNavigateEvent extends HomeEvent {}
 
 class HomeCartButtonNavigateEvent extends HomeEvent {}
+
+class ProductInfoDisplayNavigateEvent extends HomeEvent {
+  final ProductDataModel infoDisplayProduct;
+
+  ProductInfoDisplayNavigateEvent({required this.infoDisplayProduct});
+}

@@ -6,6 +6,7 @@ import 'package:bloc/bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 import 'package:shopping_app_using_blc/data/cart_items.dart';
+import 'package:shopping_app_using_blc/data/productInfoDisplayData.dart';
 //import 'package:shopping_app_using_blc/data/grocery_data.dart';
 import 'package:shopping_app_using_blc/data/wishlist_items.dart';
 import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
@@ -21,6 +22,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeProductWishlistButtonClickedEvent>(
         homeProductWishlistButtonClickedEvent);
     on<HomeProductCartButtonClickedEvent>(homeProductCartButtonClickedEvent);
+    on<ProductInfoDisplayNavigateEvent>(productInfoDisplayNavigateEvent);
   }
 
   FutureOr<void> homeInitialEvent(
@@ -82,5 +84,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     print('Cart Product clicked !');
     cartItems.add(event.clickedProduct);
     emit(HomeProductItemAddToCartActionState());
+  }
+
+  FutureOr<void> productInfoDisplayNavigateEvent(
+      ProductInfoDisplayNavigateEvent event, Emitter<HomeState> emit) {
+    productInfoDisplayData.discription = event.infoDisplayProduct.discription;
+    productInfoDisplayData.price = event.infoDisplayProduct.price;
+    productInfoDisplayData.id = event.infoDisplayProduct.id;
+    productInfoDisplayData.imageUrl = event.infoDisplayProduct.imageUrl;
+    productInfoDisplayData.name = event.infoDisplayProduct.name;
+    emit(HomeNavigateToProductInfoDisplayPageActionState());
   }
 }

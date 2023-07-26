@@ -16,6 +16,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartItemRemoveAndAddToWishlistEvent>(
         cartItemRemoveAndAddToWishlistEvent);
     on<CartItemIncrementEvent>(cartItemIncrementEvent);
+    on<CartItemDecrementEvent>(cartItemDecrementEvent);
   }
 
   FutureOr<void> cartInitialEvent(
@@ -44,6 +45,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   FutureOr<void> cartItemIncrementEvent(
       CartItemIncrementEvent event, Emitter<CartState> emit) {
+    cartItems.add(event.incrementproduct);
+    emit(CartSuccessState(CartItems: cartItems));
+  }
+
+  FutureOr<void> cartItemDecrementEvent(
+      CartItemDecrementEvent event, Emitter<CartState> emit) {
+    cartItems.remove(event.decrementproduct);
     emit(CartSuccessState(CartItems: cartItems));
   }
 }

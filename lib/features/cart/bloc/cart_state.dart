@@ -7,40 +7,27 @@ abstract class CartActionState extends CartState {}
 
 class CartInitial extends CartState {}
 
+// ignore: must_be_immutable
 class CartSuccessState extends CartState {
   // ignore: non_constant_identifier_names
   List<ProductDataModel> CartItems;
 
-  // Regular constructor
   // ignore: non_constant_identifier_names
   CartSuccessState({required this.CartItems});
 
-  // Static property to hold the unique list
-  static List<ProductDataModel> get uniqueCartItems {
-    List<ProductDataModel> uniqueItems = removeDuplicateItems([]);
-    return uniqueItems;
-  }
+  // Method to get a list of unique ProductDataModel objects based on their IDs
+  List<ProductDataModel> getUniqueProducts() {
+    Set<int> uniqueIds = {};
+    List<ProductDataModel> uniqueProducts = [];
 
-  // Factory constructor to compute uniqueCartItems
-  factory CartSuccessState.withUniqueItems(List<ProductDataModel> cartItems) {
-    List<ProductDataModel> uniqueItems = removeDuplicateItems(cartItems);
-    return CartSuccessState(CartItems: cartItems); // Use the original cartItems
-  }
-
-  // Function to filter out items with the same 'id'
-  static List<ProductDataModel> removeDuplicateItems(
-      List<ProductDataModel> list) {
-    Map<int, bool> idMap = {};
-    List<ProductDataModel> uniqueList = [];
-
-    for (var item in list) {
-      if (!idMap.containsKey(item.id)) {
-        idMap[item.id] = true;
-        uniqueList.add(item);
+    for (var item in CartItems) {
+      if (!uniqueIds.contains(item.id)) {
+        uniqueIds.add(item.id);
+        uniqueProducts.add(item);
       }
     }
 
-    return uniqueList;
+    return uniqueProducts;
   }
 }
 

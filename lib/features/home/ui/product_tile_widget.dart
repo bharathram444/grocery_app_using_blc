@@ -52,121 +52,128 @@ class _ProductTileWidgetState extends State<ProductTileWidget> {
       margin: const EdgeInsets.only(bottom: 10, top: 10, left: 10, right: 10),
       padding: const EdgeInsets.all(10),
       color: Colors.transparent,
-      child: Column(
-        children: [
-          Card(
-            semanticContainer: true,
-            elevation: 8.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(width: 2),
-                  borderRadius: const BorderRadius.all(Radius.circular(5))),
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(
-                        top: 10, right: 10, left: 10, bottom: 2),
-                    // decoration: BoxDecoration(
-                    //     border: Border.all(width: 0),
-                    //     borderRadius: const BorderRadius.all(Radius.circular(5))),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 280,
-                          width: double.maxFinite,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  //fit: BoxFit.cover,
-                                  //posts[index].title
-                                  image: NetworkImage(
-                                      widget.productDataModel.imageUrl))),
-                        ),
-                        const Divider(
-                          color: Colors.black54,
-                          height: 0,
-                          thickness: 2,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                        color: Colors.purple[200],
-                        border: Border.all(width: 0, color: Colors.transparent),
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(3),
-                            bottomRight: Radius.circular(3))),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 7),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                flag ? ("$firstHalf ...") : (firstHalf),
-                                overflow: TextOverflow.ellipsis,
-                                style: myTextStyle.copyWith(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
+      child: GestureDetector(
+        onTap: () {
+          widget.homeBloc.add(ProductInfoDisplayNavigateEvent(
+              infoDisplayProduct: widget.productDataModel));
+        },
+        child: Column(
+          children: [
+            Card(
+              semanticContainer: true,
+              elevation: 8.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(width: 2),
+                    borderRadius: const BorderRadius.all(Radius.circular(5))),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(
+                          top: 10, right: 10, left: 10, bottom: 2),
+                      // decoration: BoxDecoration(
+                      //     border: Border.all(width: 0),
+                      //     borderRadius: const BorderRadius.all(Radius.circular(5))),
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 280,
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    //fit: BoxFit.cover,
+                                    //posts[index].title
+                                    image: NetworkImage(
+                                        widget.productDataModel.imageUrl))),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        MoreLessWidget(
-                          productDataModel: widget.productDataModel,
-                          myTextStyle: myTextStyle,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "\$ ${widget.productDataModel.price}",
-                              style: myTextStyle.copyWith(
-                                  color:
-                                      const Color.fromARGB(255, 167, 250, 171),
-                                  fontSize: 20),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                          const Divider(
+                            color: Colors.black54,
+                            height: 0,
+                            thickness: 2,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                          color: Colors.purple[200],
+                          border:
+                              Border.all(width: 0, color: Colors.transparent),
+                          borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(3),
+                              bottomRight: Radius.circular(3))),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 7),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                IconButton(
-                                    onPressed: () {
-                                      widget.homeBloc.add(
-                                          HomeProductWishlistButtonClickedEvent(
-                                              clickedProduct:
-                                                  widget.productDataModel));
-                                    },
-                                    icon: const Icon(
-                                        Icons.favorite_outline_rounded)),
-                                IconButton(
-                                    onPressed: () {
-                                      widget.homeBloc.add(
-                                          HomeProductCartButtonClickedEvent(
-                                              clickedProduct:
-                                                  widget.productDataModel));
-                                    },
-                                    icon: const Icon(
-                                        Icons.add_shopping_cart_rounded))
+                                Text(
+                                  flag ? ("$firstHalf ...") : (firstHalf),
+                                  overflow: TextOverflow.ellipsis,
+                                  style: myTextStyle.copyWith(
+                                    fontSize: 12,
+                                  ),
+                                ),
                               ],
                             ),
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          MoreLessWidget(
+                            productDataModel: widget.productDataModel,
+                            myTextStyle: myTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "\$ ${widget.productDataModel.price}",
+                                style: myTextStyle.copyWith(
+                                    color: const Color.fromARGB(
+                                        255, 167, 250, 171),
+                                    fontSize: 20),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        widget.homeBloc.add(
+                                            HomeProductWishlistButtonClickedEvent(
+                                                clickedProduct:
+                                                    widget.productDataModel));
+                                      },
+                                      icon: const Icon(
+                                          Icons.favorite_outline_rounded)),
+                                  IconButton(
+                                      onPressed: () {
+                                        widget.homeBloc.add(
+                                            HomeProductCartButtonClickedEvent(
+                                                clickedProduct:
+                                                    widget.productDataModel));
+                                      },
+                                      icon: const Icon(
+                                          Icons.add_shopping_cart_rounded))
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

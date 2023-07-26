@@ -49,20 +49,11 @@ class _CartState extends State<Cart> {
           switch (state.runtimeType) {
             case CartSuccessState:
               final successState = state as CartSuccessState;
+              List<ProductDataModel> uniqueProducts =
+                  successState.getUniqueProducts();
 
-              // Create an instance of CartSuccessState using the factory constructor
-              CartSuccessState cartState =
-                  CartSuccessState.withUniqueItems(cartItems);
-
-              // Get the unique items using the static property
-              List<ProductDataModel> uniqueItems =
-                  CartSuccessState.uniqueCartItems;
-
-              // Access the normal list using the instance variable
-              List<ProductDataModel> normalItems = cartState.CartItems;
-              List<ProductDataModel> unItems = uniqueItems;
               double totalPrice = 0;
-              for (var product in normalItems) {
+              for (var product in successState.CartItems) {
                 totalPrice += product.price;
               }
               return Container(
@@ -79,10 +70,10 @@ class _CartState extends State<Cart> {
                       children: [
                         Expanded(
                           child: ListView.builder(
-                            itemCount: unItems.length,
+                            itemCount: uniqueProducts.length,
                             itemBuilder: (context, index) {
                               return CartTileWidget(
-                                productDataModel: unItems[index],
+                                productDataModel: uniqueProducts[index],
                                 cartBloc: cartBloc,
                               );
                             },
@@ -92,6 +83,15 @@ class _CartState extends State<Cart> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             "\$ $totalPrice",
+                            // "\$${totalPrice.toStringAsFixed(2)}",
+                            style: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            " ${uniqueProducts.length}",
                             // "\$${totalPrice.toStringAsFixed(2)}",
                             style: const TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold),

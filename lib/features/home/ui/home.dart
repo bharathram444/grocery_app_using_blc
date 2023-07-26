@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app_using_blc/features/cart/ui/cart.dart';
 import 'package:shopping_app_using_blc/features/home/bloc/home_bloc.dart';
 import 'package:shopping_app_using_blc/features/home/ui/ProductCategoryRowBilder.dart';
+import 'package:shopping_app_using_blc/features/productInfoDisplay/ui/productInfoDisplayPage.dart';
 import 'package:shopping_app_using_blc/features/wishlist/ui/wishlist.dart';
 
 class Home extends StatefulWidget {
@@ -47,6 +48,12 @@ class _HomeState extends State<Home> {
             content: Text('Added to Cart !'),
             duration: Duration(seconds: 1),
           ));
+        } else if (state is HomeNavigateToProductInfoDisplayPageActionState) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const productInfoDisplayPage()),
+          );
         }
       },
       builder: (context, state) {

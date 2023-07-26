@@ -22,3 +22,10 @@ class CartItemIncrementEvent extends CartEvent {
   final ProductDataModel incrementproduct;
   CartItemIncrementEvent({required this.incrementproduct});
 }
+
+// ignore: must_be_immutable
+class CartItemDecrementEvent extends CartEvent {
+  final ProductDataModel decrementproduct;
+
+  CartItemDecrementEvent({required this.decrementproduct});
+}

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app_using_blc/features/cart/bloc/cart_bloc.dart';
 import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
 
-class CartTileWidget extends StatelessWidget {
+class CartTileWidget extends StatefulWidget {
   final ProductDataModel productDataModel;
   final CartBloc cartBloc;
   const CartTileWidget({
@@ -12,8 +12,13 @@ class CartTileWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<CartTileWidget> createState() => _CartTileWidgetState();
+}
+
+class _CartTileWidgetState extends State<CartTileWidget> {
+  @override
   Widget build(BuildContext context) {
-    num count = 1 ?? 2;
+    num count = 1;
     const TextStyle myTextStyle = TextStyle(
       fontSize: 16, // Font size
       fontWeight: FontWeight.bold, // Font weight
@@ -61,7 +66,8 @@ class CartTileWidget extends StatelessWidget {
                   width: double.maxFinite,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(productDataModel.imageUrl))),
+                          image:
+                              NetworkImage(widget.productDataModel.imageUrl))),
                 ),
               ),
               const SizedBox(
@@ -98,7 +104,10 @@ class CartTileWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              widget.cartBloc.add(CartItemDecrementEvent(
+                                  decrementproduct: widget.productDataModel));
+                            },
                             icon: const Icon(
                               Icons.remove,
                               color: Colors.white,
@@ -141,8 +150,8 @@ class CartTileWidget extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () {
-                              cartBloc.add(CartItemIncrementEvent(
-                                  incrementproduct: productDataModel));
+                              widget.cartBloc.add(CartItemIncrementEvent(
+                                  incrementproduct: widget.productDataModel));
                             },
                             icon: const Icon(
                               Icons.add,
@@ -191,13 +200,14 @@ class CartTileWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          productDataModel.name, // Use cartProductName here
+                          widget.productDataModel
+                              .name, // Use cartProductName here
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
                           style: myTextStyle.copyWith(fontSize: 22),
                         ),
                         Text(
-                          "\$ ${productDataModel.price}",
+                          "\$ ${widget.productDataModel.price}",
                           style: myTextStyle.copyWith(
                               color: const Color.fromARGB(255, 76, 200, 83),
                               fontSize: 26),
@@ -225,8 +235,8 @@ class CartTileWidget extends StatelessWidget {
                           width: 100,
                           child: TextButton(
                             onPressed: () {
-                              cartBloc.add(CartItemRemoveEvent(
-                                  productDataModel: productDataModel));
+                              widget.cartBloc.add(CartItemRemoveEvent(
+                                  productDataModel: widget.productDataModel));
                             },
                             style: myButtonStyle,
                             child: const Text('Delete !'),
@@ -238,8 +248,10 @@ class CartTileWidget extends StatelessWidget {
                         Expanded(
                           child: TextButton(
                             onPressed: () {
-                              cartBloc.add(CartItemRemoveAndAddToWishlistEvent(
-                                  productDataModel: productDataModel));
+                              widget.cartBloc.add(
+                                  CartItemRemoveAndAddToWishlistEvent(
+                                      productDataModel:
+                                          widget.productDataModel));
                             },
                             style: myButtonStyle,
                             child: const Text('Move to Wishlist !'),
