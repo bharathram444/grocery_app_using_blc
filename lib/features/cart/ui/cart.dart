@@ -4,6 +4,7 @@ import 'package:shopping_app_using_blc/data/cart_items.dart';
 import 'package:shopping_app_using_blc/features/cart/bloc/cart_bloc.dart';
 import 'package:shopping_app_using_blc/features/cart/ui/cart_title_widget.dart';
 import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
+import 'package:shopping_app_using_blc/features/home/models/product_data_modal_full_details.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});
@@ -49,7 +50,7 @@ class _CartState extends State<Cart> {
           switch (state.runtimeType) {
             case CartSuccessState:
               final successState = state as CartSuccessState;
-              List<ProductDataModel> uniqueProducts =
+              List<ProductDataModelForFullDetails> uniqueProducts =
                   successState.getUniqueProducts();
 
               double totalPrice = 0;
@@ -73,7 +74,7 @@ class _CartState extends State<Cart> {
                             itemCount: uniqueProducts.length,
                             itemBuilder: (context, index) {
                               return CartTileWidget(
-                                productDataModel: uniqueProducts[index],
+                                productDataforcartwidget: uniqueProducts[index],
                                 cartBloc: cartBloc,
                               );
                             },

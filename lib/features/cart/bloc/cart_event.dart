@@ -6,26 +6,26 @@ abstract class CartEvent {}
 class CartInitialEvent extends CartEvent {}
 
 class CartItemRemoveEvent extends CartEvent {
-  final ProductDataModel productDataModel;
+  final ProductDataModelForFullDetails productDataModel;
 
   CartItemRemoveEvent({required this.productDataModel});
 }
 
 class CartItemRemoveAndAddToWishlistEvent extends CartEvent {
-  final ProductDataModel productDataModel;
+  final ProductDataModelForFullDetails moveProduct;
 
-  CartItemRemoveAndAddToWishlistEvent({required this.productDataModel});
+  CartItemRemoveAndAddToWishlistEvent({required this.moveProduct});
 }
 
 // ignore: must_be_immutable
 class CartItemIncrementEvent extends CartEvent {
-  final ProductDataModel incrementproduct;
+  final ProductDataModelForFullDetails incrementproduct;
   CartItemIncrementEvent({required this.incrementproduct});
 }
 
 // ignore: must_be_immutable
 class CartItemDecrementEvent extends CartEvent {
-  final ProductDataModel decrementproduct;
+  final ProductDataModelForFullDetails decrementproduct;
 
   CartItemDecrementEvent({required this.decrementproduct});
 }

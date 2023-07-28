@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app_using_blc/features/cart/bloc/cart_bloc.dart';
-import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
+import 'package:shopping_app_using_blc/features/home/models/product_data_modal_full_details.dart';
 
 class CartTileWidget extends StatefulWidget {
-  final ProductDataModel productDataModel;
+  final ProductDataModelForFullDetails productDataforcartwidget;
   final CartBloc cartBloc;
   const CartTileWidget({
     Key? key, // Add Key? key parameter to the constructor
-    required this.productDataModel,
+    required this.productDataforcartwidget,
     required this.cartBloc,
   }) : super(key: key);
 
@@ -66,8 +66,8 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                   width: double.maxFinite,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image:
-                              NetworkImage(widget.productDataModel.imageUrl))),
+                          image: NetworkImage(
+                              widget.productDataforcartwidget.imageUrl))),
                 ),
               ),
               const SizedBox(
@@ -106,7 +106,8 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                           IconButton(
                             onPressed: () {
                               widget.cartBloc.add(CartItemDecrementEvent(
-                                  decrementproduct: widget.productDataModel));
+                                  decrementproduct:
+                                      widget.productDataforcartwidget));
                             },
                             icon: const Icon(
                               Icons.remove,
@@ -151,7 +152,8 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                           IconButton(
                             onPressed: () {
                               widget.cartBloc.add(CartItemIncrementEvent(
-                                  incrementproduct: widget.productDataModel));
+                                  incrementproduct:
+                                      widget.productDataforcartwidget));
                             },
                             icon: const Icon(
                               Icons.add,
@@ -200,14 +202,14 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget.productDataModel
+                          widget.productDataforcartwidget
                               .name, // Use cartProductName here
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
                           style: myTextStyle.copyWith(fontSize: 22),
                         ),
                         Text(
-                          "\$ ${widget.productDataModel.price}",
+                          "\$ ${widget.productDataforcartwidget.price}",
                           style: myTextStyle.copyWith(
                               color: const Color.fromARGB(255, 76, 200, 83),
                               fontSize: 26),
@@ -236,7 +238,8 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                           child: TextButton(
                             onPressed: () {
                               widget.cartBloc.add(CartItemRemoveEvent(
-                                  productDataModel: widget.productDataModel));
+                                  productDataModel:
+                                      widget.productDataforcartwidget));
                             },
                             style: myButtonStyle,
                             child: const Text('Delete !'),
@@ -250,8 +253,8 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                             onPressed: () {
                               widget.cartBloc.add(
                                   CartItemRemoveAndAddToWishlistEvent(
-                                      productDataModel:
-                                          widget.productDataModel));
+                                      moveProduct:
+                                          widget.productDataforcartwidget));
                             },
                             style: myButtonStyle,
                             child: const Text('Move to Wishlist !'),

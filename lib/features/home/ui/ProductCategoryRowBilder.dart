@@ -39,7 +39,7 @@ class _ProductCategoryRowBilderState extends State<ProductCategoryRowBilder> {
             color: Colors.teal[200],
             padding: const EdgeInsets.symmetric(vertical: 18.0),
             width: double.maxFinite,
-            margin: const EdgeInsets.only(top: 6),
+            margin: const EdgeInsets.only(top: 3),
             child: Padding(
               padding: const EdgeInsets.only(left: 26),
               child: Text(categoryRowName,
@@ -48,7 +48,7 @@ class _ProductCategoryRowBilderState extends State<ProductCategoryRowBilder> {
             ),
           ),
           SizedBox(
-            height: 430,
+            height: 420,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.itemCount,

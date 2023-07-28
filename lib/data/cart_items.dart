@@ -1,3 +1,3 @@
-import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
+import 'package:shopping_app_using_blc/features/home/models/product_data_modal_full_details.dart';
 
-List<ProductDataModel> cartItems = [];
+List<ProductDataModelForFullDetails> cartItems = [];

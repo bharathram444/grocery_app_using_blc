@@ -10,6 +10,7 @@ import 'package:shopping_app_using_blc/data/productInfoDisplayData.dart';
 //import 'package:shopping_app_using_blc/data/grocery_data.dart';
 import 'package:shopping_app_using_blc/data/wishlist_items.dart';
 import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
+import 'package:shopping_app_using_blc/features/home/models/product_data_modal_full_details.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -80,9 +81,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> homeProductCartButtonClickedEvent(
       HomeProductCartButtonClickedEvent event, Emitter<HomeState> emit) {
-    // ignore: avoid_print
-    print('Cart Product clicked !');
-    cartItems.add(event.clickedProduct);
+    // // ignore: avoid_print
+    // print('Cart Product clicked !');
+    // cartItems.add(event.clickedProduct);
     emit(HomeProductItemAddToCartActionState());
   }
 
@@ -93,6 +94,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     productInfoDisplayData.id = event.infoDisplayProduct.id;
     productInfoDisplayData.imageUrl = event.infoDisplayProduct.imageUrl;
     productInfoDisplayData.name = event.infoDisplayProduct.name;
+    productInfoDisplayData.category = event.infoDisplayProduct.category;
+
+    productInfoDisplayData.rating = event.infoDisplayProduct.rating;
+    productInfoDisplayData.count = event.infoDisplayProduct.count;
+
     emit(HomeNavigateToProductInfoDisplayPageActionState());
   }
 }

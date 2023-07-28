@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:shopping_app_using_blc/data/cart_items.dart';
 import 'package:shopping_app_using_blc/data/wishlist_items.dart';
 import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
+import 'package:shopping_app_using_blc/features/home/models/product_data_modal_full_details.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
@@ -36,9 +37,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   FutureOr<void> cartItemRemoveAndAddToWishlistEvent(
       CartItemRemoveAndAddToWishlistEvent event, Emitter<CartState> emit) {
-    wishListItems.add(event.productDataModel);
-    cartItems.remove(event.productDataModel);
-
+    // ProductDataModelForFullDetails to Convert ProductDataModel
+    ProductDataModel fullDetailstoProductDataModel =
+        ProductDataModel.fromProductDataModelForFullDetails(event.moveProduct);
+    wishListItems.add(fullDetailstoProductDataModel);
+    cartItems.remove(event.moveProduct);
     emit(CartSuccessState(CartItems: cartItems));
     emit(CartItemRemoveAndAddToWishlistStateForScaffoldMessenger());
   }

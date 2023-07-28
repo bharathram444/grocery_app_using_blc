@@ -10,15 +10,15 @@ class CartInitial extends CartState {}
 // ignore: must_be_immutable
 class CartSuccessState extends CartState {
   // ignore: non_constant_identifier_names
-  List<ProductDataModel> CartItems;
+  List<ProductDataModelForFullDetails> CartItems;
 
   // ignore: non_constant_identifier_names
   CartSuccessState({required this.CartItems});
 
   // Method to get a list of unique ProductDataModel objects based on their IDs
-  List<ProductDataModel> getUniqueProducts() {
+  List<ProductDataModelForFullDetails> getUniqueProducts() {
     Set<int> uniqueIds = {};
-    List<ProductDataModel> uniqueProducts = [];
+    List<ProductDataModelForFullDetails> uniqueProducts = [];
 
     for (var item in CartItems) {
       if (!uniqueIds.contains(item.id)) {
