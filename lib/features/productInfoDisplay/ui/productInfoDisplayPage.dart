@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app_using_blc/features/cart/bloc/cart_bloc.dart';
 import 'package:shopping_app_using_blc/features/cart/ui/cart.dart';
+import 'package:shopping_app_using_blc/features/home/models/product_data_modal_full_details.dart';
 import 'package:shopping_app_using_blc/features/productInfoDisplay/bloc/product_info_display_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:shopping_app_using_blc/features/productInfoDisplay/cartManagement/cartManagement.dart';
 
-// ignore: camel_case_types
-class productInfoDisplayPage extends StatefulWidget {
-  const productInfoDisplayPage({super.key});
+class ProductInfoDisplayPage extends StatefulWidget {
+  final ProductDataModelForFullDetails productInfoDisplayProduct;
+
+  const ProductInfoDisplayPage(
+      {super.key, required this.productInfoDisplayProduct});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _productInfoDisplayPageState createState() => _productInfoDisplayPageState();
+  State<ProductInfoDisplayPage> createState() => _ProductInfoDisplayPageState();
 }
 
-// ignore: camel_case_types
-class _productInfoDisplayPageState extends State<productInfoDisplayPage> {
+class _ProductInfoDisplayPageState extends State<ProductInfoDisplayPage> {
   @override
   void initState() {
     productInfoDisplayBloc.add(ProductInfoDisplayInitialEvent());
@@ -25,6 +29,8 @@ class _productInfoDisplayPageState extends State<productInfoDisplayPage> {
       ProductInfoDisplayBloc();
   @override
   Widget build(BuildContext context) {
+    // Get the CartProvider instance using the Provider.of method
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
     const TextStyle myTextStyle = TextStyle(
       fontSize: 16, // Font size
       fontWeight: FontWeight.bold, // Font weight
@@ -72,12 +78,13 @@ class _productInfoDisplayPageState extends State<productInfoDisplayPage> {
         switch (state.runtimeType) {
           case ProductInfoDisplayLoadedSuccessState:
             final successState = state as ProductInfoDisplayLoadedSuccessState;
+
             return Scaffold(
               appBar: AppBar(
                 backgroundColor: const Color.fromARGB(0, 0, 0, 0),
                 title:
                     // ignore: unnecessary_string_interpolations
-                    Text("${successState.productInfoDisplayProduct.category}"),
+                    Text("${widget.productInfoDisplayProduct.category}"),
                 actions: [
                   IconButton(
                     icon: const Icon(Icons.shopping_cart),
@@ -112,14 +119,14 @@ class _productInfoDisplayPageState extends State<productInfoDisplayPage> {
                           width: double.maxFinite,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: NetworkImage(successState
+                                  image: NetworkImage(widget
                                       .productInfoDisplayProduct.imageUrl))),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 0, bottom: 6),
                         child: Text(
-                          successState.productInfoDisplayProduct
+                          widget.productInfoDisplayProduct
                               .name, // Use cartProductName here
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
@@ -130,7 +137,7 @@ class _productInfoDisplayPageState extends State<productInfoDisplayPage> {
                         padding: const EdgeInsets.only(top: 0, bottom: 6),
                         child: Text(
                           textAlign: TextAlign.left,
-                          "\$ ${successState.productInfoDisplayProduct.price}",
+                          "\$ ${widget.productInfoDisplayProduct.price}",
                           style: myTextStyle.copyWith(
                               color: const Color.fromARGB(255, 76, 200, 83),
                               fontSize: 26),
@@ -153,7 +160,7 @@ class _productInfoDisplayPageState extends State<productInfoDisplayPage> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              successState.productInfoDisplayProduct
+                              widget.productInfoDisplayProduct
                                   .discription, // Use cartProductName here
                               overflow: TextOverflow.ellipsis,
                               maxLines: 8,
@@ -208,8 +215,8 @@ class _productInfoDisplayPageState extends State<productInfoDisplayPage> {
                               children: [
                                 const SizedBox(width: 6),
                                 RatingBar.builder(
-                                  initialRating: successState
-                                      .productInfoDisplayProduct.rating,
+                                  initialRating:
+                                      widget.productInfoDisplayProduct.rating,
                                   minRating: 0,
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
@@ -224,7 +231,7 @@ class _productInfoDisplayPageState extends State<productInfoDisplayPage> {
                                   },
                                 ),
                                 Text(
-                                  "${successState.productInfoDisplayProduct.rating} out of 5 ",
+                                  "${widget.productInfoDisplayProduct.rating} out of 5 ",
                                   style: myTextStyle,
                                 )
                               ],
@@ -267,7 +274,7 @@ class _productInfoDisplayPageState extends State<productInfoDisplayPage> {
                             children: [
                               const SizedBox(width: 74),
                               Text(
-                                "${successState.productInfoDisplayProduct.count}",
+                                "${widget.productInfoDisplayProduct.count}",
                                 style: myTextStyle,
                               )
                             ],
@@ -334,7 +341,7 @@ class _productInfoDisplayPageState extends State<productInfoDisplayPage> {
                                   padding:
                                       const EdgeInsets.only(left: 3, right: 3),
                                   child: Text(
-                                    '${successState.productInfoDisplayProduct.numproducts}',
+                                    '${widget.productInfoDisplayProduct.numproducts}',
                                     style: const TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -373,9 +380,9 @@ class _productInfoDisplayPageState extends State<productInfoDisplayPage> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        productInfoDisplayBloc.add(AddToCartEvent(
-                            clickedProduct:
-                                successState.productInfoDisplayProduct));
+                        // Add the product to the cart using the cartProvider
+                        cartProvider
+                            .addToCart(widget.productInfoDisplayProduct);
                       },
                       style: myButtonStyle.copyWith(),
                       child: Text('Add to Cart !',

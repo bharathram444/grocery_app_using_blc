@@ -33,8 +33,11 @@ class HomeNavigateToCartPageActionState extends HomeActionState {}
 
 class HomeProductItemAddToWishlistActionState extends HomeActionState {}
 
-class HomeProductItemAddToCartActionState extends HomeActionState {}
+//class HomeProductItemAddToCartActionState extends HomeActionState {}
 
 class HomeNavigateToProductInfoDisplayPageActionState extends HomeActionState {
-  HomeNavigateToProductInfoDisplayPageActionState();
+  final ProductDataModelForFullDetails infoDisplayProduct;
+
+  HomeNavigateToProductInfoDisplayPageActionState(
+      {required this.infoDisplayProduct});
 }

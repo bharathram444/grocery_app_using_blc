@@ -7,6 +7,7 @@ class ProductInfoDisplayInitialEvent extends ProductInfoDisplayEvent {}
 
 class ProductInfoDisplayToCartNavigateEvent extends ProductInfoDisplayEvent {}
 
+// ignore: must_be_immutable
 class AddToCartEvent extends ProductInfoDisplayEvent {
   final ProductDataModelForFullDetails clickedProduct;
 

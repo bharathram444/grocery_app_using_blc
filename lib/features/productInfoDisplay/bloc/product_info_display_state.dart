@@ -11,7 +11,7 @@ class ProductInfoDisplayLoadingState extends ProductInfoDisplayState {}
 
 // ignore: must_be_immutable
 class ProductInfoDisplayLoadedSuccessState extends ProductInfoDisplayState {
-  ProductDataModelForFullDetails productInfoDisplayProduct;
+  final ProductDataModelForFullDetails productInfoDisplayProduct;
   ProductInfoDisplayLoadedSuccessState(
       {required this.productInfoDisplayProduct});
 }

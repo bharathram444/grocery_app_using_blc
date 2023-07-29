@@ -11,6 +11,7 @@ import 'package:shopping_app_using_blc/data/productInfoDisplayData.dart';
 import 'package:shopping_app_using_blc/data/wishlist_items.dart';
 import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
 import 'package:shopping_app_using_blc/features/home/models/product_data_modal_full_details.dart';
+//import 'package:shopping_app_using_blc/features/home/models/product_data_modal_full_details.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -22,7 +23,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeCartButtonNavigateEvent>(homeCartButtonNavigateEvent);
     on<HomeProductWishlistButtonClickedEvent>(
         homeProductWishlistButtonClickedEvent);
-    on<HomeProductCartButtonClickedEvent>(homeProductCartButtonClickedEvent);
+    //on<HomeProductCartButtonClickedEvent>(homeProductCartButtonClickedEvent);
     on<ProductInfoDisplayNavigateEvent>(productInfoDisplayNavigateEvent);
   }
 
@@ -79,26 +80,32 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(HomeProductItemAddToWishlistActionState());
   }
 
-  FutureOr<void> homeProductCartButtonClickedEvent(
-      HomeProductCartButtonClickedEvent event, Emitter<HomeState> emit) {
-    // // ignore: avoid_print
-    // print('Cart Product clicked !');
-    // cartItems.add(event.clickedProduct);
-    emit(HomeProductItemAddToCartActionState());
-  }
+  // FutureOr<void> homeProductCartButtonClickedEvent(
+  //     HomeProductCartButtonClickedEvent event, Emitter<HomeState> emit) {
+  //   // // ignore: avoid_print
+  //   // print('Cart Product clicked !');
+  //   // cartItems.add(event.clickedProduct);
+  //   emit(HomeProductItemAddToCartActionState());
+  // }
 
   FutureOr<void> productInfoDisplayNavigateEvent(
       ProductInfoDisplayNavigateEvent event, Emitter<HomeState> emit) {
-    productInfoDisplayData.discription = event.infoDisplayProduct.discription;
-    productInfoDisplayData.price = event.infoDisplayProduct.price;
-    productInfoDisplayData.id = event.infoDisplayProduct.id;
-    productInfoDisplayData.imageUrl = event.infoDisplayProduct.imageUrl;
-    productInfoDisplayData.name = event.infoDisplayProduct.name;
-    productInfoDisplayData.category = event.infoDisplayProduct.category;
-
-    productInfoDisplayData.rating = event.infoDisplayProduct.rating;
-    productInfoDisplayData.count = event.infoDisplayProduct.count;
-
-    emit(HomeNavigateToProductInfoDisplayPageActionState());
+    ProductDataModelForFullDetails fullDetails =
+        ProductDataModelForFullDetails.fromProductDataModel(
+            event.infoDisplayProduct);
+    emit(HomeNavigateToProductInfoDisplayPageActionState(
+      infoDisplayProduct: fullDetails,
+    ));
   }
 }
+// productInfoDisplayData.discription = event.infoDisplayProduct.discription;
+    // productInfoDisplayData.price = event.infoDisplayProduct.price;
+    // productInfoDisplayData.id = event.infoDisplayProduct.id;
+    // productInfoDisplayData.imageUrl = event.infoDisplayProduct.imageUrl;
+    // productInfoDisplayData.name = event.infoDisplayProduct.name;
+    // productInfoDisplayData.category = event.infoDisplayProduct.category;
+
+    // productInfoDisplayData.rating = event.infoDisplayProduct.rating;
+    // productInfoDisplayData.count = event.infoDisplayProduct.count;
+
+    // emit(HomeNavigateToProductInfoDisplayPageActionState()); // Convert ProductDataModel to ProductDataModelForFullDetails

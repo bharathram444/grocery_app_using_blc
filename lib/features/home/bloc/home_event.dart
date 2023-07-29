@@ -11,11 +11,11 @@ class HomeProductWishlistButtonClickedEvent extends HomeEvent {
   HomeProductWishlistButtonClickedEvent({required this.clickedProduct});
 }
 
-class HomeProductCartButtonClickedEvent extends HomeEvent {
-  final ProductDataModel clickedProduct;
+// class HomeProductCartButtonClickedEvent extends HomeEvent {
+//   final ProductDataModel clickedProduct;
 
-  HomeProductCartButtonClickedEvent({required this.clickedProduct});
-}
+//   HomeProductCartButtonClickedEvent({required this.clickedProduct});
+// }
 
 class HomeWishlistButtonNavigateEvent extends HomeEvent {}
 

@@ -43,16 +43,20 @@ class _HomeState extends State<Home> {
             content: Text('Added to Wishlist !'),
             duration: Duration(seconds: 1),
           ));
-        } else if (state is HomeProductItemAddToCartActionState) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Added to Cart !'),
-            duration: Duration(seconds: 1),
-          ));
-        } else if (state is HomeNavigateToProductInfoDisplayPageActionState) {
+        }
+        // else if (state is HomeProductItemAddToCartActionState) {
+        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //     content: Text('Added to Cart !'),
+        //     duration: Duration(seconds: 1),
+        //   ));
+        // }
+        else if (state is HomeNavigateToProductInfoDisplayPageActionState) {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const productInfoDisplayPage()),
+                builder: (context) => ProductInfoDisplayPage(
+                      productInfoDisplayProduct: state.infoDisplayProduct,
+                    )),
           );
         }
       },

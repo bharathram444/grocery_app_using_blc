@@ -21,6 +21,8 @@ class ProductInfoDisplayBloc
   FutureOr<void> productInfoDisplayInitialEvent(
       ProductInfoDisplayInitialEvent event,
       Emitter<ProductInfoDisplayState> emit) {
+    // ignore: avoid_print
+    print('Secand Page !');
     emit(ProductInfoDisplayLoadedSuccessState(
         productInfoDisplayProduct: productInfoDisplayData));
   }
@@ -29,6 +31,7 @@ class ProductInfoDisplayBloc
       AddToCartEvent event, Emitter<ProductInfoDisplayState> emit) {
     // ignore: avoid_print
     print('Cart Product clicked !');
+
     cartItems.add(event.clickedProduct);
   }
 

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:shopping_app_using_blc/data/cart_items.dart';
 import 'package:shopping_app_using_blc/features/cart/bloc/cart_bloc.dart';
 import 'package:shopping_app_using_blc/features/cart/ui/cart_title_widget.dart';
 import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
 import 'package:shopping_app_using_blc/features/home/models/product_data_modal_full_details.dart';
+import 'package:shopping_app_using_blc/features/productInfoDisplay/cartManagement/cartManagement.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});
@@ -52,6 +54,14 @@ class _CartState extends State<Cart> {
               final successState = state as CartSuccessState;
               List<ProductDataModelForFullDetails> uniqueProducts =
                   successState.getUniqueProducts();
+              // Get the CartProvider instance using the Provider.of method
+              final cartProvider = Provider.of<CartProvider>(context);
+
+              // Access the cart items using the getter
+              List<ProductDataModelForFullDetails> cartItems =
+                  cartProvider.cartItems;
+
+              // Now you can use the cartItems list as needed in your widget
 
               double totalPrice = 0;
               for (var product in successState.CartItems) {
@@ -71,10 +81,10 @@ class _CartState extends State<Cart> {
                       children: [
                         Expanded(
                           child: ListView.builder(
-                            itemCount: uniqueProducts.length,
+                            itemCount: cartItems.length,
                             itemBuilder: (context, index) {
                               return CartTileWidget(
-                                productDataforcartwidget: uniqueProducts[index],
+                                productDataforcartwidget: cartItems[index],
                                 cartBloc: cartBloc,
                               );
                             },
@@ -92,7 +102,16 @@ class _CartState extends State<Cart> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            " ${uniqueProducts.length}",
+                            "uniqueProducts ${uniqueProducts.length}",
+                            // "\$${totalPrice.toStringAsFixed(2)}",
+                            style: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "CartItems ${successState.CartItems.length}",
                             // "\$${totalPrice.toStringAsFixed(2)}",
                             style: const TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold),
