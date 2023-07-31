@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping_app_using_blc/features/cart/ui/cart.dart';
 import 'package:shopping_app_using_blc/features/home/bloc/home_bloc.dart';
 import 'package:shopping_app_using_blc/features/home/ui/ProductCategoryRowBilder.dart';
-import 'package:shopping_app_using_blc/features/productInfoDisplay/ui/productInfoDisplayPage.dart';
-import 'package:shopping_app_using_blc/features/wishlist/ui/wishlist.dart';
+import 'package:shopping_app_using_blc/features/productInfoDisplayUI/productInfoDisplayPage.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -29,15 +27,19 @@ class _HomeState extends State<Home> {
       buildWhen: (previous, current) => current is! HomeActionState,
       listener: (context, state) {
         if (state is HomeNavigateToCartPageActionState) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const Cart()),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => const Cart()),
+          // );
+          //MyNavigationService().navigateTo('/cart');
+          Navigator.of(context).pushNamed('/cart');
         } else if (state is HomeNavigateToWishlistPageActionState) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const WishList()),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => const WishList()),
+
+          // );
+          Navigator.of(context).pushNamed('/wishlist');
         } else if (state is HomeProductItemAddToWishlistActionState) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Added to Wishlist !'),

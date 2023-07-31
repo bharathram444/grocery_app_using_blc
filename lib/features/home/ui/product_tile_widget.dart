@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app_using_blc/cartManagement/cartManagement.dart';
 import 'package:shopping_app_using_blc/features/home/bloc/home_bloc.dart';
 import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
 import 'package:shopping_app_using_blc/features/home/models/product_data_modal_full_details.dart';
@@ -24,6 +26,8 @@ class _ProductTileWidgetState extends State<ProductTileWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+
     const TextStyle myTextStyle = TextStyle(
       fontSize: 10, // Font size
       fontWeight: FontWeight.bold, // Font weight
@@ -66,8 +70,6 @@ class _ProductTileWidgetState extends State<ProductTileWidget> {
                             width: double.maxFinite,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    //fit: BoxFit.cover,
-                                    //posts[index].title
                                     image: NetworkImage(
                                         widget.productDataModel.imageUrl))),
                           ),
@@ -118,10 +120,17 @@ class _ProductTileWidgetState extends State<ProductTileWidget> {
                                 children: [
                                   IconButton(
                                       onPressed: () {
-                                        widget.homeBloc.add(
-                                            HomeProductWishlistButtonClickedEvent(
-                                                clickedProduct:
-                                                    widget.productDataModel));
+                                        // widget.homeBloc.add(
+                                        //     HomeProductWishlistButtonClickedEvent(
+                                        //         clickedProduct:
+                                        //             widget.productDataModel));
+                                        ProductDataModelForFullDetails
+                                            fullDetails =
+                                            ProductDataModelForFullDetails
+                                                .fromProductDataModel(
+                                                    widget.productDataModel);
+                                        cartProvider.addToWishListAndInc(
+                                            context, fullDetails);
                                       },
                                       icon: const Icon(
                                           Icons.favorite_outline_rounded)),

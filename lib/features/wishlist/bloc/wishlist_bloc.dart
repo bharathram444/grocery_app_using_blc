@@ -21,13 +21,13 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
 
   FutureOr<void> wishlistInitialEvent(
       WishlistInitialEvent event, Emitter<WishlistState> emit) {
-    emit(WishlistSuccessState(WishlistItems: wishListItems));
+    // emit(WishlistSuccessState(WishlistItems: wishListItems));
   }
 
   FutureOr<void> wishlistItemRemoveEvent(
       WishlistItemRemoveEvent event, Emitter<WishlistState> emit) {
     wishListItems.remove(event.productDataModel);
-    emit(WishlistSuccessState(WishlistItems: wishListItems));
+    // emit(WishlistSuccessState(WishlistItems: wishListItems));
     emit(WishlistItemRemoveStateForScaffoldMessenger());
   }
 
@@ -39,7 +39,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
             event.productDataModel);
     cartItems.add(fullDetails);
     wishListItems.remove(event.productDataModel);
-    emit(WishlistSuccessState(WishlistItems: wishListItems));
+    // emit(WishlistSuccessState(WishlistItems: wishListItems));
     emit(WishlistItemRemoveAndAddToCartStateForScaffoldMessenger());
   }
 }

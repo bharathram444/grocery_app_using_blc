@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app_using_blc/features/cart/bloc/cart_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app_using_blc/cartManagement/cartManagement.dart';
 import 'package:shopping_app_using_blc/features/home/models/product_data_modal_full_details.dart';
 
 class CartTileWidget extends StatefulWidget {
   final ProductDataModelForFullDetails productDataforcartwidget;
-  final CartBloc cartBloc;
+
   const CartTileWidget({
     Key? key, // Add Key? key parameter to the constructor
     required this.productDataforcartwidget,
-    required this.cartBloc,
   }) : super(key: key);
 
   @override
@@ -18,7 +18,9 @@ class CartTileWidget extends StatefulWidget {
 class _CartTileWidgetState extends State<CartTileWidget> {
   @override
   Widget build(BuildContext context) {
-    num count = 1;
+    // Get the CartProvider instance using the Provider.of method
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+
     const TextStyle myTextStyle = TextStyle(
       fontSize: 16, // Font size
       fontWeight: FontWeight.bold, // Font weight
@@ -28,21 +30,27 @@ class _CartTileWidgetState extends State<CartTileWidget> {
       fontFamily: 'Roboto',
     );
     ButtonStyle myButtonStyle = ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(Colors.blue),
-      foregroundColor: MaterialStateProperty.all(Colors.white),
+      backgroundColor:
+          MaterialStateProperty.all(const Color.fromARGB(52, 255, 255, 255)),
+      foregroundColor:
+          MaterialStateProperty.all(const Color.fromARGB(52, 255, 255, 255)),
       padding: MaterialStateProperty.all(
-          const EdgeInsets.symmetric(vertical: 14, horizontal: 22)),
-      textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 16)),
+          const EdgeInsets.symmetric(vertical: 18, horizontal: 26)),
+      textStyle: MaterialStateProperty.all(
+          const TextStyle(fontSize: 16, color: Colors.black)),
       shape: MaterialStateProperty.all(
         RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+            borderRadius: BorderRadius.circular(4),
+            side: const BorderSide(
+              width: 2,
+              color: Colors.black,
+            )),
       ),
     );
 
     return Container(
       width: double.maxFinite,
-      height: 200,
+      height: 180,
       margin: const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
       decoration: BoxDecoration(
         border: Border.all(width: 2),
@@ -53,7 +61,7 @@ class _CartTileWidgetState extends State<CartTileWidget> {
       child: Row(mainAxisSize: MainAxisSize.max, children: [
         Container(
           color: Colors.white,
-          width: 180,
+          width: 160,
           height: 200,
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -61,7 +69,7 @@ class _CartTileWidgetState extends State<CartTileWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                height: 136,
+                height: 122,
                 child: Container(
                   width: double.maxFinite,
                   decoration: BoxDecoration(
@@ -78,95 +86,78 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                 height: 0,
                 thickness: 2,
               ),
-              SizedBox(
-                height: 46,
-                child: Container(
-                  width: double.maxFinite,
-                  color: Colors.transparent,
-                  child: Container(
-                    width: double.maxFinite,
-                    color: Colors.transparent,
-                    padding: const EdgeInsets.only(
-                        left: 3, right: 3, top: 2, bottom: 2),
-                    margin: const EdgeInsets.only(
-                      top: 6,
-                      bottom: 6,
-                    ),
-                    child: Container(
-                      // height: 10,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.blue,
-                      ),
-                      child: Row(
-                        // mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              widget.cartBloc.add(CartItemDecrementEvent(
-                                  decrementproduct:
-                                      widget.productDataforcartwidget));
-                            },
-                            icon: const Icon(
-                              Icons.remove,
-                              color: Colors.white,
-                              size: 18,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(
-                                left: 1, right: 1, top: 3, bottom: 3),
-                            height: double.maxFinite,
-                            width: 2, // Set the width for the divider container
-                            color: Colors.black54,
-                            child: const Divider(
-                              color: Colors
-                                  .transparent, // Set the color of the divider to transparent
-                              thickness: 2,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 3, right: 3),
-                            child: Text(
-                              //preves code
-                              //'$count'
-                              '${widget.productDataforcartwidget.id}',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(
-                                left: 1, right: 1, top: 3, bottom: 3),
-                            height: double.maxFinite,
-                            width: 2, // Set the width for the divider container
-                            color: Colors.black54,
-                            child: const Divider(
-                              color: Colors
-                                  .transparent, // Set the color of the divider to transparent
-                              thickness: 2,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              widget.cartBloc.add(CartItemIncrementEvent(
-                                  incrementproduct:
-                                      widget.productDataforcartwidget));
-                            },
-                            icon: const Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 18,
-                            ),
-                          ),
-                        ],
+              Container(
+                height: 36,
+                width: 154,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 2),
+                  borderRadius: BorderRadius.circular(4),
+                  color: const Color.fromARGB(52, 255, 255, 255),
+                ),
+                child: Row(
+                  // mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        // Remove the product to the cart using the cartProvider and dec
+                        cartProvider.removeFromCartAndDec(
+                            context, widget.productDataforcartwidget);
+                      },
+                      icon: const Icon(
+                        Icons.remove,
+                        color: Colors.black,
+                        size: 18,
                       ),
                     ),
-                  ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          left: 1, right: 1, top: 3, bottom: 3),
+                      height: double.maxFinite,
+                      width: 2, // Set the width for the divider container
+                      color: Colors.black54,
+                      child: const Divider(
+                        color: Colors
+                            .transparent, // Set the color of the divider to transparent
+                        thickness: 2,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 3, right: 3),
+                      child: Text(
+                        '${getProductNumProducts(context)}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          left: 1, right: 1, top: 3, bottom: 3),
+                      height: double.maxFinite,
+                      width: 2, // Set the width for the divider container
+                      color: Colors.black54,
+                      child: const Divider(
+                        color: Colors
+                            .transparent, // Set the color of the divider to transparent
+                        thickness: 2,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        // Add the product to the cart using the cartProvider and inc
+                        cartProvider.addToCartAndInc(
+                            context, widget.productDataforcartwidget);
+                      },
+                      icon: const Icon(
+                        Icons.add,
+                        color: Colors.black,
+                        size: 18,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -194,7 +185,7 @@ class _CartTileWidgetState extends State<CartTileWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  height: 136,
+                  height: 122,
                   // ignore: sized_box_for_whitespace
                   child: Container(
                     padding: const EdgeInsets.only(left: 6),
@@ -227,7 +218,7 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                   ),
                 ),
                 SizedBox(
-                  height: 46,
+                  height: 36,
                   child: Container(
                     width: double.maxFinite,
                     color: Colors.transparent,
@@ -236,30 +227,39 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         SizedBox(
-                          width: 100,
-                          child: TextButton(
+                          width: 110,
+                          child: ElevatedButton(
                             onPressed: () {
-                              widget.cartBloc.add(CartItemRemoveEvent(
-                                  productDataModel:
-                                      widget.productDataforcartwidget));
+                              // Remove the product to the cart using the cartProvider and dec
+                              cartProvider.removeFromCartAndDec(
+                                  context, widget.productDataforcartwidget);
                             },
                             style: myButtonStyle,
-                            child: const Text('Delete !'),
+                            child: const Text('Delete !',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                )),
                           ),
                         ),
                         const SizedBox(
                           width: 3,
                         ),
                         Expanded(
-                          child: TextButton(
+                          child: ElevatedButton(
                             onPressed: () {
-                              widget.cartBloc.add(
-                                  CartItemRemoveAndAddToWishlistEvent(
-                                      moveProduct:
-                                          widget.productDataforcartwidget));
+                              cartProvider.MoveToWishlistremoveFromCart(
+                                  context, widget.productDataforcartwidget);
+                              // widget.cartBloc.add(
+                              //     CartItemRemoveAndAddToWishlistEvent(
+                              //         moveProduct:
+                              //             widget.productDataforcartwidget));
                             },
                             style: myButtonStyle,
-                            child: const Text('Move to Wishlist !'),
+                            child: const Text('Move to Wishlist !',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)),
                           ),
                         ),
                       ],
@@ -272,5 +272,16 @@ class _CartTileWidgetState extends State<CartTileWidget> {
         ),
       ]),
     );
+  }
+
+  // Method to get the numproducts count from CartProvider
+  int getProductNumProducts(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    Iterable<ProductDataModelForFullDetails> cartProducts =
+        cartProvider.cartItems.where(
+      (item) => item.id == widget.productDataforcartwidget.id,
+    );
+
+    return cartProducts.isNotEmpty ? cartProducts.first.numproducts : 0;
   }
 }

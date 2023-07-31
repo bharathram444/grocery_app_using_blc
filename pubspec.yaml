@@ -41,6 +41,7 @@ dependencies:
   json_annotation: ^4.0.1 # For JSON serialization
   flutter_rating_bar: ^4.0.0 # Replace with the latest version available
   provider: ^6.0.5 # Check for the latest version
+  meta: ^1.7.0 # The version may vary depending on the current latest version.
 dev_dependencies:
   flutter_test:
     sdk: flutter

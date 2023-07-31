@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping_app_using_blc/data/wishlist_items.dart';
-import 'package:shopping_app_using_blc/features/wishlist/bloc/wishlist_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app_using_blc/cartManagement/cartManagement.dart';
+import 'package:shopping_app_using_blc/features/home/models/product_data_modal_full_details.dart';
 import 'package:shopping_app_using_blc/features/wishlist/ui/wishlist_title_widget.dart';
 
 class WishList extends StatefulWidget {
@@ -12,65 +12,78 @@ class WishList extends StatefulWidget {
 }
 
 class _WishListState extends State<WishList> {
-  final WishlistBloc wishlistBloc = WishlistBloc();
+//  final WishlistBloc wishlistBloc = WishlistBloc();
   @override
   void initState() {
-    wishlistBloc.add(WishlistInitialEvent());
+    // wishlistBloc.add(WishlistInitialEvent());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+    final List<ProductDataModelForFullDetails> cartList =
+        cartProvider.cartItems;
+    final List<ProductDataModelForFullDetails> wishList =
+        cartProvider.wishItems;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.purple[200],
-        title: const Text('Wishlist Items'),
-      ),
-      body: BlocConsumer<WishlistBloc, WishlistState>(
-        bloc: wishlistBloc,
-        listenWhen: (previous, current) => current is WishlistActionState,
-        buildWhen: (previous, current) => current is! WishlistActionState,
-        listener: (context, state) {
-          if (state is WishlistItemRemoveStateForScaffoldMessenger) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Item Removed from Wishlist !'),
-              duration: Duration(seconds: 1),
-            ));
-          } else if (state
-              is WishlistItemRemoveAndAddToCartStateForScaffoldMessenger) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Item Moved To Cart !'),
-              duration: Duration(seconds: 1),
-            ));
-          }
-        },
-        builder: (context, state) {
-          switch (state.runtimeType) {
-            case WishlistSuccessState:
-              final successState = state as WishlistSuccessState;
-
-              return Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        'https://images.squarespace-cdn.com/content/v1/5aa5a05cfcf7fd70d5c3b558/1521246372456-TKBYGGL86AFJZZZU8O6H/Artboard+2+copy+2%402x.png?format=2500w'),
-                    fit: BoxFit.cover,
+        appBar: AppBar(
+          backgroundColor: Colors.purple[200],
+          title: const Text('WishList Items'),
+        ),
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  'https://images.squarespace-cdn.com/content/v1/5aa5a05cfcf7fd70d5c3b558/1521246372456-TKBYGGL86AFJZZZU8O6H/Artboard+2+copy+2%402x.png?format=2500w'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: wishList.length,
+                      itemBuilder: (context, index) {
+                        return WishlistTileWidget(
+                          productDataforWishwidget: wishList[index],
+                        );
+                      },
+                    ),
                   ),
-                ),
-                child: ListView.builder(
-                    itemCount: successState.WishlistItems.length,
-                    itemBuilder: (context, index) {
-                      return WishlistTileWidget(
-                        productDataModel: successState.WishlistItems[index],
-                        wishlistBloc: wishlistBloc,
-                      );
-                    }),
-              );
-            default:
-              return const SizedBox();
-          }
-        },
-      ),
-    );
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "\$ ${cartProvider.calculateTotalPrice()}",
+                      // "\$${totalPrice.toStringAsFixed(2)}",
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "CartItems ${cartList.length}",
+                      // "\$${totalPrice.toStringAsFixed(2)}",
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "WishListItems ${wishList.length}",
+                      // "\$${totalPrice.toStringAsFixed(2)}",
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 }

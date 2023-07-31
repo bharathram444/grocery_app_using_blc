@@ -38,9 +38,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   FutureOr<void> cartItemRemoveAndAddToWishlistEvent(
       CartItemRemoveAndAddToWishlistEvent event, Emitter<CartState> emit) {
     // ProductDataModelForFullDetails to Convert ProductDataModel
-    ProductDataModel fullDetailstoProductDataModel =
-        ProductDataModel.fromProductDataModelForFullDetails(event.moveProduct);
-    wishListItems.add(fullDetailstoProductDataModel);
+    // ProductDataModel fullDetailstoProductDataModel =
+    //     ProductDataModel.fromProductDataModelForFullDetails(event.moveProduct);
+    //wishListItems.add(fullDetailstoProductDataModel);
     cartItems.remove(event.moveProduct);
     emit(CartSuccessState(CartItems: cartItems));
     emit(CartItemRemoveAndAddToWishlistStateForScaffoldMessenger());

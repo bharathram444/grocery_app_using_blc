@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
-import 'package:shopping_app_using_blc/data/cart_items.dart';
-import 'package:shopping_app_using_blc/data/productInfoDisplayData.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app_using_blc/cartManagement/cartManagement.dart';
 //import 'package:shopping_app_using_blc/data/grocery_data.dart';
 import 'package:shopping_app_using_blc/data/wishlist_items.dart';
 import 'package:shopping_app_using_blc/features/home/models/home_product_data_modal.dart';
@@ -75,8 +75,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FutureOr<void> homeProductWishlistButtonClickedEvent(
       HomeProductWishlistButtonClickedEvent event, Emitter<HomeState> emit) {
     // ignore: avoid_print
+
     print('Wishlist Product clicked !');
-    wishListItems.add(event.clickedProduct);
+    ProductDataModelForFullDetails fullDetails =
+        ProductDataModelForFullDetails.fromProductDataModel(
+            event.clickedProduct);
+    wishListItems.add(fullDetails);
     emit(HomeProductItemAddToWishlistActionState());
   }
 
