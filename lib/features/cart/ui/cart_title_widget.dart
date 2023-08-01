@@ -231,7 +231,7 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                           child: ElevatedButton(
                             onPressed: () {
                               // Remove the product to the cart using the cartProvider and dec
-                              cartProvider.removeFromCartAndDec(
+                              cartProvider.deleteFromCart(
                                   context, widget.productDataforcartwidget);
                             },
                             style: myButtonStyle,
@@ -248,7 +248,7 @@ class _CartTileWidgetState extends State<CartTileWidget> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              cartProvider.MoveToWishlistremoveFromCart(
+                              cartProvider.moveToWishlistremoveFromCart(
                                   context, widget.productDataforcartwidget);
                               // widget.cartBloc.add(
                               //     CartItemRemoveAndAddToWishlistEvent(

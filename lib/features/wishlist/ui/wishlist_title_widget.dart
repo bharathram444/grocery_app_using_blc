@@ -201,7 +201,7 @@ class _WishlistTileWidgetState extends State<WishlistTileWidget> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              cartProvider.MoveToWishlistremoveFromCart(
+                              cartProvider.moveToCartremoveFromWishlist(
                                   context, widget.productDataforWishwidget);
                             },
                             style: myButtonStyle,
